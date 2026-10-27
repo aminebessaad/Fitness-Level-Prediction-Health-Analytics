@@ -27,7 +27,7 @@
 % Page headers and footers
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{Tunis Business School --- Data Mining Research Report}}
+\fancyhead[L]{\small\textit{Tunis Business School --- Data Mining Report}}
 \fancyhead[R]{\small\textit{Fitness Level Classification}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -85,7 +85,7 @@ A Machine Learning Classification Study Using Synthetic Health Indicators \par}
 \vspace{1.5cm}
 
 \begin{minipage}[t]{0.48\textwidth}
-\textbf{Research Team / Candidates:}\\[4pt]
+\textbf{Project Team / Candidates:}\\[4pt]
 \textbf{Amine Bessaad}\\
 \textbf{Haitham Maatar}\\
 \textbf{Jasser Sghaier}\\[6pt]
@@ -118,9 +118,9 @@ A Machine Learning Classification Study Using Synthetic Health Indicators \par}
 \section*{Executive Summary \& Abstract}
 
 \begin{abstract}
-Physical fitness stratification serves as a vital prognostic indicator in preventative healthcare, cardiometabolic risk surveillance, and personalized digital health interventions. This research report presents an exhaustive, end-to-end machine learning classification study of the 1,000,000-record \emph{Synthetic Health Indicators Dataset}. We dismantle critical flaws in prior student analyses, proving that: (1) \texttt{calories\_burned} is a degenerate zero-variance constant ($1500.0, \sigma = 0.0$) across all one million rows; (2) prior reports achieving $\approx 94\%$ accuracy suffered from catastrophic target leakage by including an ad-hoc linear composite score directly into model inputs; and (3) the underlying data generating process (DGP) is governed by acute non-linear physiological penalty gates, specifically a critical \emph{sleep cliff} ($<5.0$ hours) and a \emph{chronic stress escalation gate} ($>8.0$).
+Physical fitness stratification serves as a vital prognostic indicator in preventative healthcare, cardiometabolic risk surveillance, and personalized digital health interventions. This report presents an exhaustive, end-to-end machine learning classification study of the 1,000,000-record \emph{Synthetic Health Indicators Dataset}. Our methodology resolves three fundamental data and modeling challenges: (1) identifying that \texttt{calories\_burned} is an uninformative static constant ($1500.0, \sigma = 0.0$) across all one million rows; (2) strictly avoiding circular target leakage by ensuring all engineered features rely solely on observable behavioral inputs; and (3) reverse-engineering the non-linear physiological penalty gates governing the underlying data generating process (DGP), specifically a critical \emph{sleep cliff} ($<5.0$ hours) and a \emph{chronic stress escalation gate} ($>8.0$).
 
-To resolve the tri-level target (\emph{Moderate}: 57.36\%, \emph{Unfit}: 38.00\%, \emph{Fit}: 4.64\%; 12.4:1 imbalance), we formulate leak-free physiological interaction features including the \emph{Recovery-Strain Index} (RSI), \emph{Cardiovascular Efficiency}, and the \emph{Optimal Triad Flag}. Across a Stratified 5-Fold Cross-Validation tournament evaluated on an NVIDIA Tesla T4 GPU, tree-based gradient boosters achieve peak classification performance: LightGBM and XGBoost deliver $\mathbf{92.16\%}$ overall accuracy, a weighted F1-score of $\mathbf{0.9214}$, and a macro F1-score of $\mathbf{0.7985}$, outperforming multinomial logistic regression (76.86\% accuracy) and random forest (88.58\% accuracy). TreeSHAP attributions validate that autonomic recovery systematically overrides exercise volume. Finally, we conduct two forensic investigations: isolating all 1,691 test misses into four clinical error archetypes, and proving that minority ``Fit'' recall is structurally bounded at $\approx 45\%$ by a 41.2\% synthetic label noise spillover from the majority population. Calibrated threshold optimization establishes a clinical operating point ($\tau \in [0.625, 0.763]$) that preserves 63\%--75\% precision while capturing 100\% of authentic athletic profiles.
+To resolve the tri-level target (\emph{Moderate}: 57.36\%, \emph{Unfit}: 38.00\%, \emph{Fit}: 4.64\%; 12.4:1 imbalance), we formulate leak-free physiological interaction features including the \emph{Recovery-Strain Index} (RSI), \emph{Cardiovascular Efficiency}, and the \emph{Optimal Triad Flag}. Across a Stratified 5-Fold Cross-Validation tournament, tree-based gradient boosters achieve peak classification performance: LightGBM and XGBoost deliver $\mathbf{92.16\%}$ overall accuracy, a weighted F1-score of $\mathbf{0.9214}$, and a macro F1-score of $\mathbf{0.7985}$, outperforming multinomial logistic regression (76.86\% accuracy) and random forest (88.58\% accuracy). TreeSHAP attributions validate that autonomic recovery systematically overrides exercise volume. Finally, we conduct two forensic investigations: isolating all 1,691 test misses into four clinical error archetypes, and proving that minority ``Fit'' recall is structurally bounded at $\approx 45\%$ by a 41.2\% synthetic label noise spillover from the majority population. Calibrated threshold optimization establishes a clinical operating point ($\tau \in [0.625, 0.763]$) that preserves 63\%--75\% precision while capturing 100\% of authentic athletic profiles.
 \end{abstract}
 
 \vspace{0.2em}
@@ -170,7 +170,7 @@ This investigation is structured around three core scientific hypotheses:
 \subsection{Methodological Objectives \& Guardrails}
 To ensure academic rigor and institutional compliance with Tunis Business School research standards, we enforce five strict methodological guardrails:
 \begin{enumerate}[leftmargin=*,itemsep=1pt]
-    \item \textbf{Strict Prohibition of Target Leakage:} Prior student reports constructed an arbitrary linear score ($\text{Fitness Score} = \text{Steps} \times 0.4 + \text{Sleep} \times 0.3 - \dots$) and fed it into model inputs, producing circular, artificial $\approx 94\%$ accuracy. All feature engineering in this work is strictly leak-free and biologically derived.
+    \item \textbf{Strict Prohibition of Target Leakage:} To guarantee validity, our feature engineering strictly avoids circular proxy variables that inadvertently encode the target label ($\text{Fitness Score} = \text{Steps} \times 0.4 + \text{Sleep} \times 0.3 - \dots$) and fed it into model inputs, producing circular, artificial $\approx 94\%$ accuracy. All feature engineering in this work is strictly leak-free and biologically derived.
     \item \textbf{Invariant Feature Pruning:} Continuous variables with zero variance ($\sigma^2 = 0$) provide zero information gain and must be diagnosed and eliminated prior to model training.
     \item \textbf{Proper Stratified Validation:} Due to the 12.4:1 imbalance, standard random splits risk severe fold variance for class 2. Stratified 5-Fold Cross-Validation is mandated across all experiments.
     \item \textbf{Balanced Optimization vs. Accuracy Paradox:} Overall accuracy masks minority failure. Macro-averaged F1-score, minority-class recall, and area under the precision-recall curve (PR-AUC) serve as primary optimization criteria.
@@ -181,11 +181,11 @@ To ensure academic rigor and institutional compliance with Tunis Business School
 This study operates on the 1,000,000-row tabular \emph{Synthetic Health Indicators Dataset}. While synthetic data provides massive statistical power without patient privacy restrictions, it carries synthetic generation artifacts, including discrete uniform distributions and stochastic label flipping, which are systematically quantified in Section~6.4.
 
 \subsection{Core Contributions of This Work}
-The primary contributions of this research report are:
+The primary contributions of this report are:
 \begin{enumerate}[leftmargin=*,itemsep=1pt]
-    \item \textbf{Empirical Audit \& DGP Reverse-Engineering:} We prove that \texttt{calories\_burned} is a static constant ($1500.0, \sigma=0.0$), explain the circular leakage in prior reports, and reverse-engineer the non-linear physiological penalty gates governing the data generator.
+    \item \textbf{Empirical Audit \& DGP Reverse-Engineering:} We prove that \texttt{calories\_burned} is an uninformative static constant ($1500.0, \sigma=0.0$), establish leak-free feature boundaries, and reverse-engineer the non-linear physiological penalty gates governing the synthetic data generating process.
     \item \textbf{Leak-Free Domain Feature Engineering:} We formulate five biological interaction features that lift gradient boosting accuracy to $\mathbf{92.16\%}$ and macro F1 to $\mathbf{0.7985}$.
-    \item \textbf{Multi-Model GPU Tournament:} We benchmark Multinomial Logistic Regression, Random Forest, LightGBM, and XGBoost under identical GPU-accelerated cross-validation, demonstrating that gradient-boosted decision trees dramatically outperform bagging and linear baselines on minority-class detection.
+    \item \textbf{Multi-Model Benchmark Tournament:} We benchmark Multinomial Logistic Regression, Random Forest, LightGBM, and XGBoost under identical stratified cross-validation, demonstrating that gradient-boosted decision trees dramatically outperform bagging and linear baselines on minority-class detection.
     \item \textbf{Forensic Error Analysis \& Error Archetypes:} We isolate all 1,691 test misses, cataloging four distinct clinical error archetypes.
     \item \textbf{Resolution of the ``Fit'' Recall Mystery:} We uncover that the Fit class is bimodal, proving that 41.2\% of Fit labels are noise spillover from the majority class, and provide a calibrated clinical operating table.
 \end{enumerate}
@@ -240,14 +240,14 @@ The raw dataset encompasses $1{,}000{,}000$ patient records across 17 attributes
 \begin{equation}
 \mu(\texttt{calories\_burned}) = 1500.0, \quad \sigma(\texttt{calories\_burned}) = 0.0, \quad \min = 1500.0, \quad \max = 1500.0.
 \end{equation}
-Every single patient record in the dataset contains the identical invariant constant of $1500.0$ calories burned. In prior student analyses, this variable was either included blindly or used in correlation matrices without checking variance. Because an invariant feature exhibits zero mutual information with the target:
+Every single patient record in the dataset contains the identical invariant constant of $1500.0$ calories burned. Because an invariant feature exhibits zero mutual information with the target:
 \begin{equation}
 I(\texttt{calories\_burned}; Y) = H(Y) - H(Y \mid \texttt{calories\_burned}) = 0,
 \end{equation}
 it provides zero information gain and was pruned from our modeling pipeline to eliminate redundant memory allocation.
 
 \subsection{Target Class Distribution \& The 12.4 : 1 Imbalance Ratio}
-Prior student work treated the target classes as roughly balanced or applied uniform cross-entropy loss without inspection. Table~\ref{tab:target_dist} documents the empirical ground-truth distribution of the target variable across the entire cohort.
+An essential prerequisite for valid classification is quantifying the empirical target distribution. Table~\ref{tab:target_dist} documents the ground-truth distribution of the target variable across the entire cohort.
 
 \begin{table}[htbp]\centering\small
 \caption{Target class distribution across the 1,000,000-patient synthetic health cohort.}\label{tab:target_dist}
@@ -290,7 +290,7 @@ Crucial clinical shifts emerge across the health tiers:
 \end{itemize}
 
 \subsection{Empirical Proof of Non-Linear Threshold Penalty Gates}
-A foundational finding of this research report is reverse-engineering the algorithmic logic governing the synthetic data generator. The generator does not follow a linear additive score; rather, it enforces acute \emph{non-linear physiological penalty gates}. Figure~\ref{fig:03} proves this empirically.
+A foundational finding of this study is reverse-engineering the algorithmic logic governing the synthetic data generator. The generator does not follow a linear additive score; rather, it enforces acute \emph{non-linear physiological penalty gates}. Figure~\ref{fig:03} proves this empirically.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=0.75\linewidth]{figures/03_nonlinear_penalty_thresholds.png}
@@ -315,8 +315,8 @@ The cluster dendrogram reveals two dominant functional modules: (1) an \emph{Amb
 % =====================================================================
 \section{Domain-Informed, Leak-Free Feature Engineering}
 
-\subsection{Deconstructing Prior Leaky Linear Formulations}
-In prior student coursework, groups attempted to engineer a composite target predictor by defining:
+\subsection{Leak-Free Feature Design Principles vs. Linear Proxy Traps}
+In tabular health analytics, an intuitive but fundamentally flawed approach is constructing composite linear score proxies, such as:
 \begin{equation}
 \text{Fitness Score}_{\text{leaky}} = 0.4 \times \text{Steps} + 0.3 \times \text{Sleep} - 0.2 \times \text{Stress} - 0.1 \times \text{BMI},
 \end{equation}
@@ -359,7 +359,7 @@ The cohort was partitioned using an $80/20$ Stratified Train-Test split ($800{,}
 \section{Model Architectures, Tournament \& Empirical Results}
 
 \subsection{Experimental Setup \& Balanced Weighting Strategy}
-All experiments were executed on an NVIDIA Tesla T4 GPU (16 GB VRAM) paired with high-memory virtualized CPU instances. To prevent majority-class collapse, cost-sensitive class weights $w_c = N / (3 N_c)$ were supplied to all loss functions.
+To prevent majority-class collapse across the 12.4:1 imbalanced target, cost-sensitive class weights $w_c = N / (3 N_c)$ were supplied to all loss functions.
 
 \subsection{Multi-Model Benchmark Results \& Comparison}
 Table~\ref{tab:benchmarks} summarizes the benchmark performance across all evaluated architectures on the held-out test cohort.
@@ -489,8 +489,8 @@ Figure~\ref{fig:waterfalls} presents personalized patient case studies:
     \item \textbf{Case Study 2 (The Model Athletic Patient):} Patient achieves 9,850 steps/day, sleeps 7.8 hours, resting HR 56 bpm, and BMI 21.8 kg/m$^2$. Large positive attributions across RSI ($+1.18$) and cardio efficiency ($+0.84$) drive a 91.4\% confidence \emph{Fit} classification.
 \end{itemize}
 
-\subsection{Deep Dive into the ``Fit'' Minority Class: Bimodality, Contamination \& The Precision-Recall Bound}
-A central empirical question in synthetic health analytics is why classifiers across the Kaggle community---including benchmarks by dataset creator Manu Sharma---consistently struggle with minority-class ``Fit'' recall, which frequently stalls between 7\% and 30\% despite high overall accuracy ($>88\%$). To diagnose the mathematical foundations of this limitation, we conducted a targeted forensic decomposition of all 46,381 records labeled as ``Fit'' (Class 2).
+\subsection{Structural Analysis of the ``Fit'' Minority Class: Bimodality, Contamination \& Precision-Recall Bounds}
+A central empirical challenge in this dataset is that standard classifiers struggle with minority-class ``Fit'' recall, which typically stalls between 25\% and 37\% under unweighted loss functions despite high overall accuracy ($>88\%$). To diagnose the mathematical foundations governing this behavior, we conducted an exhaustive forensic decomposition across all 46,381 records labeled as ``Fit'' (Class 2).
 
 \subsubsection{Empirical Bimodality Discovery within the ``Fit'' Population}
 Kernel density estimation and Gaussian Mixture Modeling (Figure~\ref{fig:fit_bimodality_overview}) reveal an unexpected, sharp bimodal decomposition across daily steps, BMI, resting heart rate, and sleep duration:
@@ -562,10 +562,10 @@ In commercial wearable firmware, continuous optical PPG heart rate and accelerom
 Our sampling sensitivity experiments demonstrate that model performance improves from Macro F1 = 0.733 at 20,000 samples to 0.751 at 100,000 samples, before plateauing near 250,000. For digital health enterprise deployments, acquiring or labeling millions of records yields diminishing returns. An operational sample of 100,000 balanced observations provides optimal statistical power while minimizing cloud training costs.
 
 % =====================================================================
-\section{Conclusion \& Future Research Directions}
-This research report presented an end-to-end machine learning classification study for physical fitness level prediction using synthetic health indicators. We successfully dismantled flawed assumptions in prior student work, demonstrating that: (1) the target variable is heavily imbalanced (12.4:1 ratio); (2) \texttt{calories\_burned} is an invariant zero-variance constant; (3) ad-hoc linear composite scoring induces severe target leakage; and (4) the data generator is governed by non-linear physiological penalty gates, including a critical sleep cliff ($<5$h) and a chronic stress threshold ($>8$).
+\section{Conclusion \& Project Roadmap}
+This report presented an end-to-end machine learning classification study for physical fitness level prediction using synthetic health indicators. Through a disciplined exploratory and predictive framework, this project establishes that: (1) the target variable is heavily imbalanced (12.4:1 ratio); (2) \texttt{calories\_burned} is an uninformative zero-variance constant; (3) naive linear composite scoring creates circular target leakage; and (4) the data generating process is governed by non-linear physiological penalty gates, including a critical sleep cliff ($<5$h) and a chronic stress threshold ($>8$).
 
-By designing leak-free physiological interaction features and evaluating models under Stratified 5-Fold Cross Validation on an NVIDIA Tesla T4 GPU, we demonstrated that tree-based gradient boosters (XGBoost and LightGBM) achieve superior predictive performance ($\mathbf{92.16\%}$ accuracy, $\mathbf{0.7985}$ macro F1, $\mathbf{0.9214}$ weighted F1) while establishing two core scientific breakthroughs:
+By designing leak-free physiological interaction features and evaluating models under Stratified 5-Fold Cross-Validation, we demonstrated that tree-based gradient boosters (XGBoost and LightGBM) achieve superior predictive performance ($\mathbf{92.16\%}$ accuracy, $\mathbf{0.7985}$ macro F1, $\mathbf{0.9214}$ weighted F1) while establishing two core scientific breakthroughs:
 \begin{enumerate}[leftmargin=*,itemsep=1pt]
     \item Isolating four distinct clinical error archetypes responsible for misclassification boundaries, and
     \item Mathematically proving that minority-class ``Fit'' recall is bounded by a 41.2\% synthetic label noise contamination from the majority population.
@@ -619,8 +619,8 @@ Lundberg, S.~M., \& Lee, S.~I. (2017). A unified approach to interpreting model 
 \bibitem[Mandsager et~al.(2018)]{mandsager2018}
 Mandsager, K., Harb, S., Cremer, P., Phelan, D., Nissen, S.~E., \& Jaber, W. (2018). Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing. \emph{JAMA Network Open}, 1(6), e183605.
 
-\bibitem[Parashar(2024)]{parashar2024}
-Parasharmanu. (2024). Synthetic Health Indicators Dataset. \emph{Kaggle Datasets}. \url{https://www.kaggle.com/datasets/parasharmanu/synthetic-health-indicators-dataset}.
+\bibitem[Synthetic Health Dataset(2024)]{dataset2024}
+Synthetic Health Indicators Dataset. (2024). \emph{Kaggle Datasets}. \url{https://www.kaggle.com/datasets/parasharmanu/synthetic-health-indicators-dataset}.
 
 \bibitem[Pedregosa et~al.(2011)]{pedregosa2011}
 Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., et~al. (2011). Scikit-learn: Machine learning in Python. \emph{Journal of Machine Learning Research}, 12, 2825--2830.

@@ -3,7 +3,6 @@
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Gradient Boosting: LightGBM & XGBoost](https://img.shields.io/badge/Boosting-LightGBM%20%7C%20XGBoost-success.svg)](https://lightgbm.readthedocs.io/)
 [![Explainable AI: SHAP](https://img.shields.io/badge/XAI-SHAP%20TreeExplainer-orange.svg)](https://shap.readthedocs.io/)
-[![Hardware: NVIDIA Tesla T4 GPU](https://img.shields.io/badge/GPU-Kaggle%20NVIDIA%20T4-76B900.svg)](https://www.nvidia.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
 An advanced data mining and digital health analytics research project classifying individuals into physiological fitness tiers (**Unfit**, **Moderate**, **Fit**) using continuous behavioral and biometric indicators. Developed as part of the **Data Mining** curriculum at **Tunis Business School, University of Tunis** under the academic supervision of **Pr. Lassad El Moubarki**.
@@ -201,7 +200,7 @@ python scripts/fitness_pipeline.py --sample_size 100000
 ```
 
 ### Running on Kaggle GPU
-The notebook is pre-configured for dual-platform compatibility. You can inspect or run the GPU-accelerated version directly on Kaggle:
+The notebook is pre-configured for dual-platform compatibility. You can inspect or run the stratified version directly on Kaggle:
 - **Kaggle Kernel:** [bessaadamine/notebook2d642f8f23](https://www.kaggle.com/code/bessaadamine/notebook2d642f8f23) (Executed on NVIDIA Tesla T4).
 
 ---

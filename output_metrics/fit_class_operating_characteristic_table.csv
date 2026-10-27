@@ -1,0 +1,9 @@
+Target Fit Recall,Resulting Fit Precision,Fit F1 Score,Probability Threshold,Clinical Trade-off
+35.1%,74.7%,0.4772,0.8224,High-Confidence Pure Athlete
+40.0%,63.2%,0.4899,0.7634,High-Confidence Pure Athlete
+44.1%,39.7%,0.4175,0.6250,Balanced Operating Point
+50.0%,15.3%,0.2338,0.4026,Severe False Alarm Explosion
+55.1%,10.5%,0.1763,0.3597,Severe False Alarm Explosion
+60.0%,9.0%,0.1569,0.3438,Severe False Alarm Explosion
+70.0%,6.7%,0.1228,0.3132,Severe False Alarm Explosion
+80.0%,5.6%,0.1044,0.2796,Severe False Alarm Explosion

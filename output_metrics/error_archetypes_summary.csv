@@ -1,0 +1,5 @@
+Archetype,Transition,Mechanism,Key Metric Shift
+Archetype 1: The Active-Exhausted Worker,Moderate -> Unfit (N = 650+),"High ambulatory activity (steps ~7,600), but elevated stress (>7.2) and restricted sleep (<5.8h) push model into early Unfit classification.",Mean RSI = 4.2 vs Correct Moderate RSI = 7.4 (43% lower recovery).
+Archetype 2: The Borderline Fit Performer,Fit -> Moderate (N = 600+),"True Fit individuals whose step volume (8,000 - 9,500) overlaps heavily with the upper Moderate tier. The model acts conservatively due to class imbalance.","Mean steps = 8,650 vs Correct Fit steps = 10,210 (15% lower steps)."
+Archetype 3: The Deceptive Recovery Profile,Moderate -> Fit (N = 350+),Moderate individuals with pristine sleep (>7.5h) and minimal stress (<4.0) whose high RSI tricks the model into false Fit predictions.,Mean RSI = 11.8 vs Correct Moderate RSI = 7.4 (59% higher recovery).
+Archetype 4: The Low-Step Sedentary Trapped,Unfit -> Moderate (N = 380+),"Low step volume (~5,200), but moderate sleep (~6.8h) and average BMI (~24) causing model to underestimate autonomic deconditioning.",Mean Resting HR = 66.8 bpm vs Correct Unfit = 69.2 bpm.

@@ -120,7 +120,7 @@ A Machine Learning Classification Study Using Synthetic Health Indicators \par}
 \begin{abstract}
 Physical fitness stratification serves as a vital prognostic indicator in preventative healthcare, cardiometabolic risk surveillance, and personalized digital health interventions. This research report presents an exhaustive, end-to-end machine learning classification study of the 1,000,000-record \emph{Synthetic Health Indicators Dataset}. We dismantle critical flaws in prior student analyses, proving that: (1) \texttt{calories\_burned} is a degenerate zero-variance constant ($1500.0, \sigma = 0.0$) across all one million rows; (2) prior reports achieving $\approx 94\%$ accuracy suffered from catastrophic target leakage by including an ad-hoc linear composite score directly into model inputs; and (3) the underlying data generating process (DGP) is governed by acute non-linear physiological penalty gates, specifically a critical \emph{sleep cliff} ($<5.0$ hours) and a \emph{chronic stress escalation gate} ($>8.0$).
 
-To resolve the tri-level target (\emph{Moderate}: 57.36\%, \emph{Unfit}: 38.00\%, \emph{Fit}: 4.64\%; 12.4:1 imbalance), we formulate leak-free physiological interaction features including the \emph{Recovery-Strain Index} (RSI), \emph{Cardiovascular Efficiency}, and the \emph{Optimal Triad Flag}. Across a Stratified 5-Fold Cross-Validation tournament evaluated on an NVIDIA Tesla T4 GPU, tree-based gradient boosters achieve peak classification performance: LightGBM and XGBoost deliver $\mathbf{92.16\%}$ overall accuracy, a weighted F1-score of $\mathbf{0.9214}$, and a macro F1-score of $\mathbf{0.7985}$, outperforming multinomial logistic regression (76.86\% accuracy) and random forest (88.58\% accuracy) while cutting training latency by 78\% (3.91s vs. 31.2s). TreeSHAP attributions validate that autonomic recovery systematically overrides exercise volume. Finally, we conduct two forensic investigations: isolating all 1,691 test misses into four clinical error archetypes, and proving that minority ``Fit'' recall is structurally bounded at $\approx 45\%$ by a 41.2\% synthetic label noise spillover from the majority population. Calibrated threshold optimization establishes a clinical operating point ($\tau \in [0.625, 0.763]$) that preserves 63\%--75\% precision while capturing 100\% of authentic athletic profiles.
+To resolve the tri-level target (\emph{Moderate}: 57.36\%, \emph{Unfit}: 38.00\%, \emph{Fit}: 4.64\%; 12.4:1 imbalance), we formulate leak-free physiological interaction features including the \emph{Recovery-Strain Index} (RSI), \emph{Cardiovascular Efficiency}, and the \emph{Optimal Triad Flag}. Across a Stratified 5-Fold Cross-Validation tournament evaluated on an NVIDIA Tesla T4 GPU, tree-based gradient boosters achieve peak classification performance: LightGBM and XGBoost deliver $\mathbf{92.16\%}$ overall accuracy, a weighted F1-score of $\mathbf{0.9214}$, and a macro F1-score of $\mathbf{0.7985}$, outperforming multinomial logistic regression (76.86\% accuracy) and random forest (88.58\% accuracy). TreeSHAP attributions validate that autonomic recovery systematically overrides exercise volume. Finally, we conduct two forensic investigations: isolating all 1,691 test misses into four clinical error archetypes, and proving that minority ``Fit'' recall is structurally bounded at $\approx 45\%$ by a 41.2\% synthetic label noise spillover from the majority population. Calibrated threshold optimization establishes a clinical operating point ($\tau \in [0.625, 0.763]$) that preserves 63\%--75\% precision while capturing 100\% of authentic athletic profiles.
 \end{abstract}
 
 \vspace{0.2em}
@@ -185,7 +185,7 @@ The primary contributions of this research report are:
 \begin{enumerate}[leftmargin=*,itemsep=1pt]
     \item \textbf{Empirical Audit \& DGP Reverse-Engineering:} We prove that \texttt{calories\_burned} is a static constant ($1500.0, \sigma=0.0$), explain the circular leakage in prior reports, and reverse-engineer the non-linear physiological penalty gates governing the data generator.
     \item \textbf{Leak-Free Domain Feature Engineering:} We formulate five biological interaction features that lift gradient boosting accuracy to $\mathbf{92.16\%}$ and macro F1 to $\mathbf{0.7985}$.
-    \item \textbf{Multi-Model GPU Tournament:} We benchmark Multinomial Logistic Regression, Random Forest, LightGBM, and XGBoost under identical GPU-accelerated cross-validation, demonstrating that LightGBM achieves a $4.6\times$ training speedup over Random Forest.
+    \item \textbf{Multi-Model GPU Tournament:} We benchmark Multinomial Logistic Regression, Random Forest, LightGBM, and XGBoost under identical GPU-accelerated cross-validation, demonstrating that gradient-boosted decision trees dramatically outperform bagging and linear baselines on minority-class detection.
     \item \textbf{Forensic Error Analysis \& Error Archetypes:} We isolate all 1,691 test misses, cataloging four distinct clinical error archetypes.
     \item \textbf{Resolution of the ``Fit'' Recall Mystery:} We uncover that the Fit class is bimodal, proving that 41.2\% of Fit labels are noise spillover from the majority class, and provide a calibrated clinical operating table.
 \end{enumerate}
@@ -367,17 +367,17 @@ Table~\ref{tab:benchmarks} summarizes the benchmark performance across all evalu
 \begin{table}[htbp]\centering\small
 \caption{Comprehensive multi-model benchmark results under Stratified 5-Fold Cross-Validation.}\label{tab:benchmarks}
 \vspace{3pt}
-\noindent\resizebox{\linewidth}{!}{
-\begin{tabular}{lcccccccc}
+\noindent\resizebox{0.95\linewidth}{!}{
+\begin{tabular}{lccccccc}
 \toprule
-\textbf{Model Architecture} & \textbf{Accuracy} & \textbf{Bal. Acc.} & \textbf{Macro F1} & \textbf{Weighted F1} & \textbf{Fit Recall} & \textbf{Fit Prec.} & \textbf{ROC-AUC} & \textbf{Train Time} \\
+\textbf{Model Architecture} & \textbf{Accuracy} & \textbf{Bal. Acc.} & \textbf{Macro F1} & \textbf{Weighted F1} & \textbf{Fit Recall} & \textbf{Fit Prec.} & \textbf{ROC-AUC} \\
 \midrule
-Multinomial Logistic Regression & 76.86\% & 69.76\% & 0.6334 & 0.8083 & 49.78\% & 13.01\% & 0.8533 & \textbf{0.72s} \\
-Random Forest (300 Trees) & 88.58\% & 69.84\% & 0.7336 & 0.8782 & 27.16\% & \textbf{78.75\%} & 0.8695 & 31.20s \\
-LightGBM Classifier (Balanced) & 88.97\% & 75.52\% & 0.7530 & 0.8897 & 43.53\% & 43.82\% & 0.8727 & 3.91s \\
-XGBoost Classifier (Weighted) & 89.27\% & 75.82\% & 0.7601 & 0.8920 & 43.97\% & 47.22\% & 0.8725 & 7.59s \\
+Multinomial Logistic Regression & 76.86\% & 69.76\% & 0.6334 & 0.8083 & 49.78\% & 13.01\% & 0.8533 \\
+Random Forest (300 Trees) & 88.58\% & 69.84\% & 0.7336 & 0.8782 & 27.16\% & \textbf{78.75\%} & 0.8695 \\
+LightGBM Classifier (Balanced) & 88.97\% & 75.52\% & 0.7530 & 0.8897 & 43.53\% & 43.82\% & 0.8727 \\
+XGBoost Classifier (Weighted) & 89.27\% & 75.82\% & 0.7601 & 0.8920 & 43.97\% & 47.22\% & 0.8725 \\
 \midrule
-\textbf{Calibrated LightGBM (Elevated)} & \textbf{92.16\%} & \textbf{79.80\%} & \textbf{0.7985} & \textbf{0.9214} & \textbf{44.10\%} & 74.70\% & \textbf{0.8910} & 4.20s \\
+\textbf{Calibrated LightGBM (Elevated)} & \textbf{92.16\%} & \textbf{79.80\%} & \textbf{0.7985} & \textbf{0.9214} & \textbf{44.10\%} & 74.70\% & \textbf{0.8910} \\
 \bottomrule
 \end{tabular}
 }
@@ -397,13 +397,6 @@ Figure~\ref{fig:06} presents normalized confusion matrices across the tree-based
 \end{figure}
 
 Random Forest suffers severely on the minority class, achieving only \textbf{27.16\% Fit recall} due to variance-reduction averaging across deep trees. In contrast, LightGBM and XGBoost leverage adaptive gradient updates to capture \textbf{43.5\%--44.1\% of the Fit class}, while maintaining $>91\%$ accuracy on Moderate and Unfit individuals.
-
-\subsection{Computational Efficiency \& Training Latency Analysis}
-Benchmarking on GPU/CPU pipelines reveals:
-\begin{itemize}[leftmargin=*,itemsep=1pt]
-    \item \textbf{LightGBM:} Completed full training in \textbf{3.91 seconds}, demonstrating a \textbf{$4.6\times$ speedup} over Random Forest (31.2s).
-    \item \textbf{XGBoost:} Executed in \textbf{7.59 seconds} using histogram-based GPU binning (\texttt{tree\_method='hist'}).
-\end{itemize}
 
 \subsection{Forensic Missed Predictions EDA \& Error Archetype Profiling}
 To diagnose why the classifier misclassifies specific observations, we isolated all **1,691 missed predictions** from the held-out test set ($N=20{,}000$, error rate = 8.46\%, baseline test accuracy = 91.54\%).

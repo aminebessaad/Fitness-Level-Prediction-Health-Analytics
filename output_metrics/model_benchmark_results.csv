@@ -1,0 +1,5 @@
+Model,Accuracy,Balanced Accuracy,F1 Macro,F1 Weighted,Fit Recall,Fit Precision,Fit F1,ROC-AUC (OvR),Train Time (s)
+Logistic Regression (Baseline),0.7686,0.6976,0.6334,0.8083,0.4978,0.1301,0.2063,0.8533,0.72
+Random Forest (Balanced),0.8858,0.6984,0.7336,0.8782,0.2716,0.7875,0.4038,0.8695,6.38
+LightGBM Classifier (Balanced),0.8897,0.7552,0.753,0.8897,0.4353,0.4382,0.4368,0.8727,3.91
+XGBoost Classifier (Weighted),0.8927,0.7582,0.7601,0.892,0.4397,0.4722,0.4554,0.8725,7.59

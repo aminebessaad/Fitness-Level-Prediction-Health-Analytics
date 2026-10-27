@@ -1,0 +1,21 @@
+# Large raw dataset files (full 1M CSV)
+data/fitness_dataset.csv
+data/*.zip
+*.csv.gz
+
+# Python & Jupyter environment
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Kaggle run scratch & logs
+kaggle_output/
+*.log
+
+# OS & Office lock files
+.DS_Store
+Thumbs.db
+~$*
+*.tmp

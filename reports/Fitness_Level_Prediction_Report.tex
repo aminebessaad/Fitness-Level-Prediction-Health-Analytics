@@ -11,7 +11,10 @@
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage[authoryear,round]{natbib}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}
+\def\UrlBreaks{\do\/\do-\do_\do.\do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z}
 \usepackage{placeins}
 \usepackage{microtype}
 
@@ -669,14 +672,18 @@ World Health Organization. (2020). \emph{WHO Guidelines on Physical Activity and
 \section*{Appendix: Reproducible Python Pipeline Architecture}
 \addcontentsline{toc}{section}{Appendix: Reproducible Python Pipeline Architecture}
 
-The entire machine learning experimentation framework, data processing steps, cross-validation tournaments, forensic missed predictions analysis, Fit class bimodality diagnostics, and SHAP explainability pipelines are orchestrated via modular Python scripts and Jupyter notebooks deposited in the project GitHub repository: \url{https://github.com/aminebessaad/Fitness-Level-Prediction-Health-Analytics}:
+The entire machine learning experimentation framework, data processing steps, cross-validation tournaments, forensic missed predictions analysis, Fit class bimodality diagnostics, and SHAP explainability pipelines are orchestrated via modular Python scripts and Jupyter notebooks deposited in the project GitHub repository:
+\begin{center}
+\small\url{https://github.com/aminebessaad/Fitness-Level-Prediction-Health-Analytics}
+\end{center}
 
-\begin{itemize}[leftmargin=*,itemsep=1pt]
+\vspace{-4pt}
+\begin{itemize}[leftmargin=*,itemsep=2pt]
     \item \texttt{notebooks/fitness\_level\_prediction.ipynb}: 23-cell executable Jupyter notebook providing an end-to-end interactive workflow from exploratory data analysis to calibrated clinical threshold optimization.
     \item \texttt{scripts/analyze\_misses\_eda.py}: Standalone script executing the forensic missed predictions error analysis, isolating 1,691 test misses, and exporting Figures 12--15.
     \item \texttt{scripts/analyze\_fit\_hidden\_patterns.py}: Standalone script executing kernel density bimodality decomposition, Gaussian mixture profiling, and precision-recall trade-off modeling for the Fit class.
     \item \texttt{scripts/build\_academic\_report.py}: Automated report builder synthesizing empirical metrics and figures.
-    \item \texttt{output\_metrics/}: Directory containing structured CSV outputs including \texttt{model\_benchmark\_results.csv}, \texttt{error\_archetypes\_summary.csv}, and \texttt{fit\_class\_operating\_characteristic\_table.csv}.
+    \item \texttt{output\_metrics/}: Directory containing structured CSV outputs (\texttt{model\_benchmark\_results.csv}, \texttt{error\_archetypes\_summary.csv}, and \texttt{fit\_class\_operating\_characteristic\_table.csv}).
 \end{itemize}
 
 \end{document}

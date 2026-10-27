@@ -120,15 +120,48 @@ Physical fitness stratification serves as a vital prognostic indicator in preven
 To resolve the tri-level target (\emph{Moderate}: 57.36\%, \emph{Unfit}: 38.00\%, \emph{Fit}: 4.64\%; 12.4:1 imbalance), we formulate leak-free physiological interaction features including the \emph{Recovery-Strain Index} (RSI), \emph{Cardiovascular Efficiency}, and the \emph{Optimal Triad Flag}. Across a Stratified 5-Fold Cross-Validation tournament, tree-based gradient boosters achieve peak classification performance: LightGBM and XGBoost deliver $\mathbf{92.16\%}$ overall accuracy, a weighted F1-score of $\mathbf{0.9214}$, and a macro F1-score of $\mathbf{0.7985}$, outperforming multinomial logistic regression (76.86\% accuracy) and random forest (88.58\% accuracy). TreeSHAP attributions validate that autonomic recovery systematically overrides exercise volume. Finally, we conduct two forensic investigations: isolating all 1,691 test misses into four clinical error archetypes, and proving that minority ``Fit'' recall is structurally bounded at $\approx 45\%$ by a 41.2\% synthetic label noise spillover from the majority population. Calibrated threshold optimization establishes a clinical operating point ($\tau \in [0.625, 0.763]$) that preserves 63\%--75\% precision while capturing 100\% of authentic athletic profiles.
 \end{abstract}
 
-\vspace{0.2em}
-\textbf{Keywords:} Physical Fitness Level, Data Mining, Gradient Boosting (LightGBM/XGBoost), Class Imbalance, Data Generating Process (DGP), Explainable AI (SHAP), Error Archetypes, Digital Health Informatics.
+\vspace{1.5em}
+\noindent\textbf{Keywords:} Physical Fitness Level, Data Mining, Gradient Boosting (LightGBM/XGBoost), Class Imbalance, Data Generating Process (DGP), Explainable AI (SHAP), Error Archetypes, Digital Health Informatics.
 
-\vspace{0.8em}
-\hrule
-\vspace{0.8em}
-
-\tableofcontents
 \newpage
+% =====================================================================
+% PAGE 3: TABLE OF CONTENTS (FITS ENTIRELY ON PAGE 3)
+% =====================================================================
+\thispagestyle{plain}
+\vspace*{-0.5cm}
+\begingroup
+\small
+\setcounter{tocdepth}{2}
+\makeatletter
+\renewcommand*\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{0.20em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\renewcommand*\l@subsection[2]{%
+  \ifnum \c@tocdepth >\@ne
+    \addpenalty\@secpenalty
+    \addvspace{0.02em \@plus\p@}%
+    \@dottedtocline{2}{1.5em}{2.3em}{#1}{#2}%
+  \fi}
+\makeatother
+\linespread{0.90}\selectfont
+\tableofcontents
+\endgroup
+\newpage
+% =====================================================================
+% PAGE 4+: MAIN BODY (INTRODUCTION ONWARDS)
+% =====================================================================
+
 
 % =====================================================================
 % CONTINUOUS BODY (NO MANUAL NEWPAGE BREAKS)

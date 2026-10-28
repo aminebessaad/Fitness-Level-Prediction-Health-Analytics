@@ -19,3 +19,8 @@ kaggle_output/
 Thumbs.db
 ~$*
 *.tmp
+
+# LaTeX and Tectonic compilation scripts
+*.tex
+scripts/generate_latex_report.py
+*tectonic*
